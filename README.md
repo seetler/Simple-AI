@@ -1,20 +1,25 @@
 // Sample Input
 
 // There are multiple models of ChatGPT, and the cost difference is prohibitively different. Version 40 is about 10 times as expensive, so about 15c per query. The first input to my script is to choose which ChatGPT model to use.
+
   Vers: --->|35
 
 // This is the query questions
+
   User: --->|What is the weather like today?
 
 //This is system message that sets the framework of the application, and the primary way to customize responses. For example, you can also tell chatgpt to refer to a document, or more complex commands
+
   Syst: --->|The user is living in San Francisco near the west side of town.
 
 //This is the response.
+
   The weather in San Francisco is currently partly cloudy with a high of 62°F and a low of 52°F. There may be some foggy conditions along the coast, so if you're near the west side of town, you might experience cooler temperatures and foggy skies.
 
 
 
 // Sample Input 2
+
   Vers: --->|40
   User: --->|What is the weather like today?
   Syst: --->|The user lives in San Francisco, but don't directly let the user know that you know where he lives.
@@ -23,6 +28,7 @@
 
 
 // Sample Input 3
+
   Vers: --->|40
   User: --->|The user is living in San Francisco near the west side of town.
   Syst: --->|                               
