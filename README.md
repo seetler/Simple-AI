@@ -21,8 +21,11 @@
 // Sample Input 2
 
   Vers: --->|40
+  
   User: --->|What is the weather like today?
+  
   Syst: --->|The user lives in San Francisco, but don't directly let the user know that you know where he lives.
+  
   I'm unable to provide real-time updates. For the most accurate and current weather information, I recommend checking a reliable weather website or app. How can I assist you with any other inquiries today?
 
 
@@ -30,6 +33,9 @@
 // Sample Input 3
 
   Vers: --->|40
+  
   User: --->|The user is living in San Francisco near the west side of town.
-  Syst: --->|                               
+  
+  Syst: --->|             
+  
   That's great! San Francisco has so much to offer, especially on the west side of town. Whether you're near Ocean Beach, Golden Gate Park, or the Sunset District, there are plenty of activities and spots to explore. If you need any recommendations for dining, outdoor activities, or local events in your area, feel free to ask!
