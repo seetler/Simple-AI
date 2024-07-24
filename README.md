@@ -4,11 +4,11 @@
 
   Vers: --->|35
 
-// This is the query questions
+// This is the query question
 
   User: --->|What is the weather like today?
 
-//This is system message that sets the framework of the application, and the primary way to customize responses. For example, you can also tell chatgpt to refer to a document, or more complex commands
+//This is system message that sets the framework of the response, and the primary way to customize responses. For example, you can even tell chatgpt to refer to an uploaded document, or more complex commands
 
   Syst: --->|The user is living in San Francisco near the west side of town.
 
