@@ -39,3 +39,14 @@
   Syst: --->|             
   
   That's great! San Francisco has so much to offer, especially on the west side of town. Whether you're near Ocean Beach, Golden Gate Park, or the Sunset District, there are plenty of activities and spots to explore. If you need any recommendations for dining, outdoor activities, or local events in your area, feel free to ask!
+
+
+// Sample Input 4
+
+  Vers: --->|40
+  
+  User: --->|What is the weather like today?
+  
+  Syst: --->|the user lives in san francisco, respond with a joke
+  
+  Why did the San Francisco weather report bring a blanket to work? Because it knows it has to cover all four seasons in one day!
