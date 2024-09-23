@@ -12,6 +12,7 @@ input_syst=input('Syst: --->|')
 model_dict={'35':'gpt-3.5-turbo', '40':'gpt-4o'}
 
 model_vers=model_dict[input_vers]
+# --df
 
 
 completion = client.chat.completions.create(
