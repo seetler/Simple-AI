@@ -14,9 +14,10 @@ def home():
 #function that calls another webpage.
 @app.route('/submit', methods=['POST'])
 def submit():
-    name_init = request.form.get('name')
+    name_init = request.form.get('input_user')
+    county_select=request.form.get('category')
     name = func_complete_cycle(name_init)
-    return render_template('greet.html', name=name)
+    return render_template('greet.html', name=name, selection=county_select)
 
 
 
