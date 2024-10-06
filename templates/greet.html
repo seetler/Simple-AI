@@ -2,15 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
     <title>Home</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
     <h1>Answer!</h1>
-<br>
-<div class="answer_box">{{ name }} </div>
-<div>{{ selection }}</div>
+    <br>
+    <!-- Updated div class -->
+    <div class="answer_box" name="response">{{ name|safe }} </div>
     <br>
     <form action="/submit" method="POST">
         <input type="text" name="name" placeholder="Your Name">

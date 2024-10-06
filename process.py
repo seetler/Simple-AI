@@ -4,6 +4,7 @@
 # importing the openai package and the authentication key.
 import openai
 from key_computer3_oai import *
+import re
 
 client = openai.OpenAI(api_key=key_api_key0)
 
@@ -18,11 +19,12 @@ def func_send_msg(user_input0):
     )
 
 # This functions runs a thread. The purpose of having this function is to have a way to insert variables into the OpenAI client.beta.threads.runs.create_and_poll function.
-def func_run_thread(var_instructions0=''):
+def func_run_thread(county_select, var_instructions0=''):
     # this is setup where this is the function, however the outer shell allows insertion of thread ID, assistant ID, and instructions.
     run = client.beta.threads.runs.create_and_poll(
     thread_id=var_thread_id0,
-    assistant_id=assistant_id0,
+
+    assistant_id=assistant_dict[county_select],
     instructions=var_instructions0
     )
 
@@ -37,9 +39,22 @@ def func_retrieve_msg():
     return messages.data[0].content[0].text.value
 
 # This runs the full cycle in one function.
-def func_complete_cycle(user_input0):
+def func_complete_cycle(user_input0, county_select):
     func_send_msg(user_input0)
-    func_run_thread()
+    func_run_thread(county_select)
     function_output = func_retrieve_msg()
 
     return function_output
+
+
+def convert_to_html_bold(text):
+    # Replace double asterisks (**) with <strong> for bold text
+    html_text = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', text)
+    
+    # Replace newline characters (\n) with <br> for line breaks
+    html_text = html_text.replace('\n', '<br>')
+    
+    # Remove any text between 【 and 】
+    html_text = re.sub(r'【.*?】', '', html_text)
+    
+    return html_text

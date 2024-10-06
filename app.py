@@ -16,7 +16,8 @@ def home():
 def submit():
     name_init = request.form.get('input_user')
     county_select=request.form.get('category')
-    name = func_complete_cycle(name_init)
+    name = convert_to_html_bold(func_complete_cycle(name_init, county_select))
+    print(repr(name))
     return render_template('greet.html', name=name, selection=county_select)
 
 
