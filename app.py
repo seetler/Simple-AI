@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
-
-from process import *
+from key_computer3_oai import *
+from db_package import *
 
 app = Flask(__name__)
 
@@ -9,16 +9,52 @@ app = Flask(__name__)
 def home():
     return render_template('index.html')
 
+global_thread = None
+global_county = None
 
-
-#function that calls another webpage.
+#When the route is /submit, it posts the information. It takes, input_user and category
 @app.route('/submit', methods=['POST'])
 def submit():
-    name_init = request.form.get('input_user')
-    county_select=request.form.get('category')
-    name = convert_to_html_bold(func_complete_cycle(name_init, county_select))
-    print(repr(name))
-    return render_template('greet.html', name=name, selection=county_select)
+
+    global global_thread, global_county
+
+    #creates a thread
+    var_thread_id0=(client.beta.threads.create()).id
+    global_thread = var_thread_id0
+    print(var_thread_id0)
+
+
+    #puts in prompts
+    subm_prompt = request.form.get('form_prompt')
+    subm_county=request.form.get('form_county')
+    global_county = subm_county
+  
+
+    response_prompt = func_complete_cycle(subm_prompt, subm_county, var_thread_id0)
+    print(repr(response_prompt))
+    return render_template('conversation.html', response_prompt=response_prompt, response_county=subm_county)
+
+
+
+
+
+#When the route is /submit, on the followup
+@app.route('/conversation', methods=['POST'])
+def conversation():
+
+    global global_thread, global_county
+
+
+    #puts in prompts
+    subm_prompt = request.form.get('form_prompt')
+    subm_county=global_county
+    print(assistant_dict[subm_county])
+
+    response_prompt = func_complete_cycle(subm_prompt, subm_county, global_thread)
+    print(repr(response_prompt))
+    return render_template('conversation.html', response_prompt=response_prompt, response_county=subm_county)
+
+
 
 
 

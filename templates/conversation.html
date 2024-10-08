@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>{{ response_county | safe}} County</h1>
+    <br>
+    <!-- Updated div class -->
+    <div class="answer_box" name="response">{{ response_prompt|safe }} </div>
+    <br>
+    <form action="/conversation" method="POST">
+        <input type="text" name="form_prompt" placeholder="Question">
+
+
+                <!-- Dropdown Menu -->
+        <!-- <label for="form_county">Select a category:</label> -->
+        <!-- <select name="form_county" id="form_county">
+            <option value="sonoma">Sonoma</option>
+            <option value="marin">Marin</option>
+        </select> -->
+        <button type="submit">Submit</button>
+    </form>
+
+
+</body>
+</html>

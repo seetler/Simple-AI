@@ -10,16 +10,16 @@
     <h1>Civic Code AI: County Laws and Ordinances</h1>
 
     <form action="/submit" method="POST">
-        <input type="text" name="input_user" placeholder="Question">
+        <input type="text" name="form_prompt" placeholder="Question">
 
 
                 <!-- Dropdown Menu -->
-        <label for="category">Select a category:</label>
-        <select name="category" id="category">
-            <option value="san_francisco">San Francisco</option>
-            <option value="alameda">Alameda</option>
-            <option value="sonoma">Sonoma</option>
-            <option value="marin">Marin</option>
+        <label for="form_county">Select a category:</label>
+        <select name="form_county" id="form_county">
+            <!-- <option value="san_francisco">San Francisco</option> -->
+            <!-- <option value="alameda">Alameda</option> -->
+            <option value="Sonoma">Sonoma</option>
+            <option value="Marin">Marin</option>
         </select>
         <button type="submit">Submit</button>
     </form>
