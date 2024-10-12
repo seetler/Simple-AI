@@ -1,1 +1,1 @@
-(civiccodeai.com)
+[Civic Code AI](https://civiccodeai.com)
