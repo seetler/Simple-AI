@@ -28,7 +28,7 @@ def submit():
     subm_prompt = request.form.get('form_prompt')
     subm_county=request.form.get('form_county')
     global_county = subm_county
-  
+    print(assistant_dict[subm_county])
 
     response_prompt = func_complete_cycle(subm_prompt, subm_county, var_thread_id0)
     print(repr(response_prompt))
@@ -65,5 +65,6 @@ def greet():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Run the Flask app on all available IP addresses
+    app.run(host='0.0.0.0', port=5000, debug=True)
 
