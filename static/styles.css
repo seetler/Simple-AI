@@ -3,13 +3,13 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f4f6f7;
     color: #333;
-    margin: 0;
-    padding: 0;
+    margin-top: 20;
+    margin-bottom: 20;
+    padding: 20;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
 }
 
 /* Styling for the h1 */
@@ -34,9 +34,8 @@ h2 {
     align-content: center;
     width: 100%; /* Allow it to take the full width */
     min-height: 100vh; /* Ensure it takes at least the full viewport height */
-    padding-top: 20px; /* Add vertical buffer at the top */
-    padding-bottom: 20px; /* Add vertical buffer at the bottom */
     box-sizing: border-box; /* Include padding in height calculation */
+    margin:auto;
 }
 
 /* Form container */
@@ -140,6 +139,7 @@ button:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     box-sizing: border-box; /* Ensure padding and borders are considered in the width */
     transition: transform 0.3s, box-shadow 0.3s;
+    margin:auto
 }
 
 /* Add hover effect to the answer box */
