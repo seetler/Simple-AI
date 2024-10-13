@@ -28,8 +28,17 @@ def submit():
 
 
     #puts in prompts
+    
     subm_prompt = request.form.get('form_prompt')
+    if subm_prompt is None or subm_prompt.strip() == "":
+        subm_prompt = "Can I camp in parks? Are there fees?"
+
     subm_county=request.form.get('form_county')
+
+
+
+
+
     global_county = subm_county
     timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
@@ -58,8 +67,14 @@ def conversation():
     global global_thread, global_county
 
 
-  #puts in prompts
+
     subm_prompt = request.form.get('form_prompt')
+    if subm_prompt is None or subm_prompt.strip() == "":
+        subm_prompt = "followup"
+
+
+  #puts in prompts
+
     timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
     with open('log.txt', 'a') as f:

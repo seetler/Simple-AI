@@ -1,3 +1,7 @@
+cd Simple-AI
+
 gunicorn --bind 0.0.0.0:8000 Simple-AI.app:app
 
 source openai-env/bin/activate
+
+ps aux | grep gunicorn
