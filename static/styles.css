@@ -29,9 +29,21 @@ h2 {
 }
 
 
+.encompass {
+    display: block;
+    background-color: #777777;
+    align-content: center;
+    width: 100%; /* Allow it to take the full width */
+    min-height: 100vh; /* Ensure it takes at least the full viewport height */
+    padding-top: 20px; /* Add vertical buffer at the top */
+    padding-bottom: 20px; /* Add vertical buffer at the bottom */
+    box-sizing: border-box; /* Include padding in height calculation */
+}
+
 /* Form container */
 form {
     background-color: #fff;
+    margin:auto;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

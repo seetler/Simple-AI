@@ -11,7 +11,8 @@
 
 </head>
 <body>
-    <h2>{{ response_county | safe }} County</h2>
+   <div class="encompass"> 
+    <h1>{{ response_county | safe }} County</h1>
     <br>
     <!-- Updated div class -->
     <div class="answer_box" name="response">{{ response_prompt | safe }}</div>
@@ -22,6 +23,6 @@
         <button type="submit" id="submitBtn">Submit</button>
     </form>
 
-
+</div>
 </body>
 </html>
