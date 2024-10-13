@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from key_computer3_oai import *
 from db_package import *
 from datetime import datetime
@@ -16,10 +16,13 @@ global_thread = "threads/thread_wqrYgWSOoth0ZYf3YeIov9Jx"
 global_county = "Sonoma"
 
 #When the route is /submit, it posts the information. It takes, input_user and category
-@app.route('/submit', methods=['POST'])
+@app.route('/submit', methods=['POST', 'GET'])
 def submit():
-
     global global_thread, global_county
+
+    # Handle GET requests by redirecting to home
+    if request.method == 'GET':
+        return redirect(url_for('home'))
 
     #creates a thread
     var_thread_id0=(client.beta.threads.create()).id
