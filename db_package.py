@@ -11,6 +11,14 @@ client = openai.OpenAI(api_key=key_api_key0)
 
 
 
+# This functions runs a thread. The purpose of having this function is to have a way to insert variables into the OpenAI client.beta.threads.runs.create_and_poll function.
+def func_create_thread():
+    # this is setup where this is the function, however the outer shell allows insertion of thread ID, assistant ID, and instructions.
+    run_id = client.beta.threads.create()
+    return run_id.id
+
+
+
 # This functions adds a user message to a thread.
 def func_send_msg(user_input0, var_thread_id0):
     client.beta.threads.messages.create(
@@ -19,17 +27,21 @@ def func_send_msg(user_input0, var_thread_id0):
     content=user_input0
     )
 
+
+
 # This functions runs a thread. The purpose of having this function is to have a way to insert variables into the OpenAI client.beta.threads.runs.create_and_poll function.
-def func_run_thread(form_county, var_thread_id0, var_instructions0='You are a onsite computer answering questions for people at the county administration building.'):
+def func_run_thread(form_county, var_thread_id0):
     # this is setup where this is the function, however the outer shell allows insertion of thread ID, assistant ID, and instructions.
     run = client.beta.threads.runs.create_and_poll(
     thread_id=var_thread_id0,
 
     assistant_id=assistant_dict[form_county],
-    # instructions=var_instructions0
+    # instructions=var_instructions
     )
 
     return run
+
+
 
 # This retries the latest message after the thread is run
 def func_retrieve_msg(var_thread_id0):
@@ -38,6 +50,8 @@ def func_retrieve_msg(var_thread_id0):
     )
 
     return messages.data[0].content[0].text.value
+
+
 
 
 
@@ -53,6 +67,10 @@ def text_fix(text):
     html_text = re.sub(r'【.*?】', '', html_text)
     
     return html_text
+
+
+
+
 
 
 # This runs the full cycle in one function.
