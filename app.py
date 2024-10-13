@@ -35,16 +35,23 @@ def submit():
     subm_prompt = request.form.get('form_prompt')
     if subm_prompt is None or subm_prompt.strip() == "":
         subm_prompt = "Can I camp in parks? Are there fees?"
+    
+    subm_email = request.form.get('form_email')
+    if subm_email is None or subm_email.strip() == "":
+        subm_email = "null"
 
     subm_county=request.form.get('form_county')
-
-
 
 
 
     global_county = subm_county
     timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
+
+
+    with open('log.txt', 'a') as f:
+        f.write(f'{timestamp} - Email: {subm_email} \n')
+    
     with open('log.txt', 'a') as f:
         f.write(f'{timestamp} - Thread: {global_thread} |  - Question: {subm_prompt} | County: {subm_county}\n')
     

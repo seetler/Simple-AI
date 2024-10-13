@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon"> 
 
+    <style>
+        .hidden { display: none; }
+    </style>
+
+
 </head>
 <body>
 
@@ -19,16 +24,32 @@
     <form action="/submit" method="POST">
         <input type="text" maxw name="form_prompt" placeholder="Can I camp in parks? are there fees?">
 
-
                 <!-- Dropdown Menu -->
         <label for="form_county"></label>
         <select name="form_county" id="form_county">
-            <!-- <option value="san_francisco">San Francisco</option> -->
-            <!-- <option value="alameda">Alameda</option> -->
             <option value="Sonoma">Sonoma</option>
-            <!-- <option value="Marin">Marin</option> -->
         </select>
-        <button type="submit">Submit</button>
+        <input type="text" maxw name="form_email" placeholder="Email (optional)">
+
+        <button type="submit" onclick="showTextbox()">Submit</button>
+
+
+
+        <div id="textboxContainer" margin-top="20px" padding="20px" class="hidden">
+
+<div class="filler">
+Add your email to help us reduce wait times, and serve your county.
+</div>
+
+        </div>
+    
+        <script>
+            function showTextbox() {
+                document.getElementById("textboxContainer").classList.remove("hidden");
+            }
+        </script>
+
+        
     </form>
 
 </div> 
