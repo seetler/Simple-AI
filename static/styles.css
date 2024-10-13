@@ -20,6 +20,15 @@ h1 {
     text-align: center;
 }
 
+/* Styling for the h1 */
+h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: left;
+}
+
+
 /* Form container */
 form {
     background-color: #fff;
