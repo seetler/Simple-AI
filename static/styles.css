@@ -31,7 +31,6 @@ h2 {
 
 .encompass {
     display: block;
-    background-color: #777777;
     align-content: center;
     width: 100%; /* Allow it to take the full width */
     min-height: 100vh; /* Ensure it takes at least the full viewport height */
