@@ -124,7 +124,7 @@ button:hover {
     text-align: left;
     color: #333;
     width: 100%; /* Make the answer box flexible in width */
-    max-width: 800px; /* Set a maximum width */
+    max-width: 600px; /* Set a maximum width */
     margin-bottom: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     box-sizing: border-box; /* Ensure padding and borders are considered in the width */
