@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.8">
+    <meta property="og:image" content="{{ url_for('static', filename='Logo.png') }}" /> <!-- Use url_for for static images -->
 
     <title>Civic Code AI</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
@@ -13,6 +14,9 @@
 <body>
    <div class="encompass"> 
     <h1>{{ response_county | safe }} County</h1>
+
+
+
     <br>
     <!-- Updated div class -->
     <div class="answer_box" name="response">{{ response_prompt | safe }}</div>
