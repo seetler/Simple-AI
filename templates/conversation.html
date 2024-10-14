@@ -9,11 +9,15 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon"> 
 
-
+    <style>
+        .hidden { display: none; }
+        .encompass { text-align: center; display: block; }
+    </style>
 </head>
 <body>
    <div class="encompass"> 
-    <h1>{{ response_county | safe }} County</h1>
+    <img src="{{ url_for('static', filename='Logo.png') }}" alt="Logo" style="margin-bottom: 20px; width: 100px; box-shadow: 1px 1px 3px rgba(51, 54, 51, 0.5);" />
+
 
 
 
