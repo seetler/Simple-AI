@@ -51,6 +51,9 @@ def submit():
 
     with open('log.txt', 'a') as f:
         f.write(f'{timestamp} - Email: {subm_email} \n')
+
+    with open('email.txt', 'a') as f:
+        f.write(f'{timestamp} - Email: {subm_email} \n')
     
     with open('log.txt', 'a') as f:
         f.write(f'{timestamp} - Thread: {global_thread} |  - Question: {subm_prompt} | County: {subm_county}\n')
