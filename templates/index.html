@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.8">
-    <title>Home</title>
+    <title>Civic Code AI | County Ordinances Helpbot</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon"> 
 
@@ -19,7 +19,8 @@
 <div>
     <h1>Civic Code AI: County Laws and Ordinances</h1>
 </div>
-    <div class="answer_box" name="response">Hello, I'm here to help you answer any questions about public county ordinances and laws. Type your question below and then press Submit. <br><br>Currently, Civic Code AI is only available for Sonoma County.</div>
+    <div class="answer_box" name="response">Hello, I'm here to help you answer any questions about public county ordinances and laws. Type your question below and then press Submit. 
+        <br><br>Currently, Civic Code AI is only available for Sonoma County public ordinances.</div>
 <br>
     <form action="/submit" method="POST">
         <input type="text" maxw name="form_prompt" placeholder="Can I camp in parks? are there fees?">
@@ -38,7 +39,7 @@
         <div id="textboxContainer" margin-top="20px" class="hidden">
 
 <div class="filler">
-Add your email to help us lower load times.
+Add your email to help lower wait times, and expand into your county.
 </div>
 
         </div>
