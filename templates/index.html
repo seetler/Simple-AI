@@ -1,49 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=0.8">
-        <title>Civic Code AI | County Ordinances Helpbot</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+    <title>Civic Code AI | County Ordinances Helpbot</title>
     
-        <!-- Description for SEO -->
-        <meta name="description" content="Civic Code AI provides assistance with county laws and ordinances. Get answers to your questions about public county ordinances and laws, currently available for Sonoma County.">
+    <!-- SEO -->
+    <meta name="description" content="Civic Code AI provides assistance with county laws and ordinances. Get answers to your questions about public county ordinances and laws, currently available for Sonoma County.">
+    <meta name="keywords" content="Civic Code AI, county laws, ordinances, Sonoma County, public ordinances, legal assistance, helpbot">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Civic Code AI | County Ordinances Helpbot">
+    <meta property="og:description" content="Civic Code AI provides assistance with county laws and ordinances. Get answers to your questions about public county ordinances and laws.">
+    <meta property="og:image" content="https://civiccodeai.com/static/Logo.png">
+    <meta property="og:url" content="http://civiccodeai.com">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon"> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+    <style>
+        .hidden { display: none; }
+        .encompass { text-align: center; display: block; }
         
-        <!-- Keywords for SEO -->
-        <meta name="keywords" content="Civic Code AI, county laws, ordinances, Sonoma County, public ordinances, legal assistance, helpbot">
-    
-        <!-- Open Graph Tags for social media -->
-        <meta property="og:title" content="Civic Code AI | County Ordinances Helpbot">
-        <meta property="og:description" content="Civic Code AI provides assistance with county laws and ordinances. Get answers to your questions about public county ordinances and laws.">
-        <meta property="og:image" content="https://civiccodeai.com/static/Logo.png">
-        <meta property="og:url" content="http://civiccodeai.com">
-        
-        <!-- Favicon -->
-        <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon"> 
-        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    
-        <style>
-            .hidden { display: none; }
-            .encompass { text-align: center; display: block; }
-        </style>
-    </head>
+        /* Style for the filler box */
+        .filler {
+
+            background-color: #f2f2f2;
+            border: 1px solid #ccc;
+            width: 200px;
+
+            font-weight: bold;
+            text-align: center;
+            opacity: 1;
+        }
+
+        /* Flashing animation */
+        @keyframes flashAndFade {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .flashing {
+            animation: flashAndFade 1.5s infinite;
+        }
+    </style>
+</head>
 <body>
-
-
 
     <div class="encompass">   
         <img src="{{ url_for('static', filename='Logo.png') }}" alt="Logo" style="margin-bottom: 20px; width: 100px; box-shadow: 1px 1px 3px rgba(51, 54, 51, 0.5);" />
 
-
         <div class="answer_box" name="response">
-
-
             Hello, I'm here to help you answer any questions about public county ordinances and laws. Type your question below and then press Submit. 
             <br><br>Currently, Civic Code AI is only available for Sonoma County public ordinances.
         </div>
+
         <br>
         <form action="/submit" method="POST">
             <input type="text" name="form_prompt" placeholder="Can I camp in parks? are there fees?" maxlength="100">
-
+            
             <!-- Dropdown Menu -->
             <select name="form_county" id="form_county">
                 <option value="Sonoma">Sonoma</option>
@@ -53,19 +69,21 @@
             <button type="submit" onclick="showTextbox()">Submit</button>
 
             <div id="textboxContainer" style="margin-top: 20px;" class="hidden">
-                <div class="filler">
-                    Add your email to help lower wait times, and expand into your county.
+                <div id="fillerBox" class="filler">
+                    Answering your Question...
                 </div>
             </div>
-
         </form>
-        <!-- <img src="{{ url_for('static', filename='Logo.png') }}" alt="Logo" />  -->
-
     </div> 
 
     <script>
         function showTextbox() {
-            document.getElementById("textboxContainer").classList.remove("hidden");
+            var textbox = document.getElementById("textboxContainer");
+            var fillerBox = document.getElementById("fillerBox");
+            textbox.classList.remove("hidden");
+
+            // Add flashing animation
+            fillerBox.classList.add("flashing");
         }
     </script>
 
