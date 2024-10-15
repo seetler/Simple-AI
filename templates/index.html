@@ -25,11 +25,9 @@
         
         /* Style for the filler box */
         .filler {
-
             background-color: #f2f2f2;
             border: 1px solid #ccc;
             width: 200px;
-
             font-weight: bold;
             text-align: center;
             opacity: 1;
@@ -84,6 +82,16 @@
 
             // Add flashing animation
             fillerBox.classList.add("flashing");
+
+            // Change text after 5 seconds
+            setTimeout(function() {
+                fillerBox.innerText = "Checking the Facts...";
+            }, 5000); // 5 seconds
+
+            // Change text again after another 5 seconds
+            setTimeout(function() {
+                fillerBox.innerText = "Finalizing the Details...";
+            }, 10000); // 10 seconds
         }
     </script>
 
