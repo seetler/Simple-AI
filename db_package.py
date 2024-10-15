@@ -1,5 +1,4 @@
 # This files contains all the core functions that are then imported into app.py, the base Flask function.
-# Currently for simplicity sakes, all are using the same thread and Assistant ID, however in the future this needs to be distinguished.
 
 # importing the openai package and the authentication key.
 import openai
@@ -15,6 +14,7 @@ client = openai.OpenAI(api_key=key_api_key0)
 def func_create_thread():
     # this is setup where this is the function, however the outer shell allows insertion of thread ID, assistant ID, and instructions.
     run_id = client.beta.threads.create()
+    
     return run_id.id
 
 
@@ -22,31 +22,36 @@ def func_create_thread():
 # This functions adds a user message to a thread.
 def func_send_msg(user_input0, var_thread_id0):
     client.beta.threads.messages.create(
-    thread_id=var_thread_id0,
-    role="user",
-    content=user_input0
+
+        thread_id=var_thread_id0,
+        role="user",
+        content=user_input0
+
     )
 
 
 
 # This functions runs a thread. The purpose of having this function is to have a way to insert variables into the OpenAI client.beta.threads.runs.create_and_poll function.
 def func_run_thread(form_county, var_thread_id0):
+    
     # this is setup where this is the function, however the outer shell allows insertion of thread ID, assistant ID, and instructions.
     run = client.beta.threads.runs.create_and_poll(
-    thread_id=var_thread_id0,
 
-    assistant_id=assistant_dict[form_county],
-    # instructions=var_instructions
+        thread_id=var_thread_id0,
+        assistant_id=assistant_dict[form_county],
+
     )
 
-    return run
+
 
 
 
 # This retries the latest message after the thread is run
 def func_retrieve_msg(var_thread_id0):
     messages = client.beta.threads.messages.list(
+        
         thread_id=var_thread_id0
+
     )
 
     return messages.data[0].content[0].text.value
@@ -75,8 +80,10 @@ def text_fix(text):
 
 # This runs the full cycle in one function.
 def func_complete_cycle(subm_prompt, subm_county, var_thread_id0):
+    
     func_send_msg(subm_prompt, var_thread_id0)
     func_run_thread(subm_county, var_thread_id0)
+    
     function_output = text_fix(func_retrieve_msg(var_thread_id0))
 
     return function_output
