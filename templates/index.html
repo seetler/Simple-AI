@@ -23,16 +23,6 @@
         .hidden { display: none; }
         .encompass { text-align: center; display: block; }
         
-        /* Style for the filler box */
-        .filler {
-            background-color: #f2f2f2;
-            border: 1px solid #ccc;
-            width: 200px;
-            font-weight: bold;
-            text-align: center;
-            opacity: 1;
-        }
-
         /* Flashing animation */
         @keyframes flashAndFade {
             0%, 100% { opacity: 1; }
@@ -50,25 +40,24 @@
         <img src="{{ url_for('static', filename='Logo.png') }}" alt="Logo" style="margin-bottom: 20px; width: 100px; box-shadow: 1px 1px 3px rgba(51, 54, 51, 0.5);" />
 
         <div class="answer_box" name="response">
-            Hello, I'm here to help you answer any questions about public county ordinances and laws. Type your question below and then press Submit. 
+            Hello, I'm here to help you answer any questions about public county ordinances and laws. Type your question below and then press Submit. This can take a few seconds.
             <br><br>Currently, Civic Code AI is only available for Sonoma County public ordinances.
         </div>
 
         <br>
-        <form action="/submit" method="POST">
-            <input type="text" name="form_prompt" placeholder="Can I camp in parks? are there fees?" maxlength="100">
+        <form action="/submit" method="POST" onsubmit="return showTextbox()">
+            <input type="text" name="form_prompt" placeholder="What is the fine for littering in public?" maxlength="100">
             
             <!-- Dropdown Menu -->
             <select name="form_county" id="form_county">
                 <option value="Sonoma">Sonoma</option>
             </select>
-            <input type="text" name="form_email" placeholder="Email (optional)" maxlength="100">
 
-            <button type="submit" onclick="showTextbox()">Submit</button>
+            <button type="submit">Submit</button>
 
             <div id="textboxContainer" style="margin-top: 20px;" class="hidden">
                 <div id="fillerBox" class="filler">
-                    Answering your Question, this can take a couple of seconds.
+                    Answering your Question...
                 </div>
             </div>
         </form>
@@ -85,13 +74,26 @@
 
             // Change text after 5 seconds
             setTimeout(function() {
-                fillerBox.innerText = "Checking the Facts...";
+                fillerBox.innerText = "This can take a couple of seconds...";
             }, 5000); // 5 seconds
 
             // Change text again after another 5 seconds
             setTimeout(function() {
                 fillerBox.innerText = "Finalizing the Details...";
             }, 10000); // 10 seconds
+
+            // Change text again after another 5 seconds
+            setTimeout(function() {
+                fillerBox.innerText = "Organizing the Response...";
+            }, 15000); // 10 seconds
+
+            // Hide the filler box after 20 seconds
+            setTimeout(function() {
+                textbox.classList.add("hidden");
+            }, 20000); // 20 seconds
+
+            // Return true to allow form submission
+            return true;
         }
     </script>
 
