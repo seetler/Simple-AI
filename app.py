@@ -35,7 +35,7 @@ def submit():
     #puts in prompts
     subm_prompt = request.form.get('form_prompt')
     if subm_prompt is None or subm_prompt.strip() == "":
-        subm_prompt = "What is the fine for littering in public?"
+        subm_prompt = "What is the fine for littering?"
     
     subm_email = request.form.get('form_email')
     if subm_email is None or subm_email.strip() == "":
