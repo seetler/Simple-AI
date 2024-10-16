@@ -63,10 +63,13 @@ def submit():
 
 
 #When the route is /conversation, on the followup
-@app.route('/conversation', methods=['POST'])
+@app.route('/conversation', methods=['POST', 'GET'])
 def conversation():
-
     global global_thread, global_county
+
+    # Handle GET requests by redirecting to home
+    if request.method == 'GET':
+        return redirect(url_for('home'))
 
     subm_prompt = request.form.get('form_prompt')
     if subm_prompt is None or subm_prompt.strip() == "":
