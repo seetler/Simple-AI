@@ -28,7 +28,8 @@ h1 {
     box-sizing: border-box; /* Include padding in height calculation */
     margin:auto;
     display: block; 
-    text-align: center; 
+    text-align: center;
+    margin-top:50px;
 }
 
 /* Form container */
