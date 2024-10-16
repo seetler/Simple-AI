@@ -24,7 +24,7 @@ h1 {
     display: block;
     align-content: center;
     width: 100%; /* Allow it to take the full width */
-    min-height: 100vh; /* Ensure it takes at least the full viewport height */
+    min-height: 75vh; /* Ensure it takes at least the full viewport height */
     box-sizing: border-box; /* Include padding in height calculation */
     margin:auto;
     display: block; 
