@@ -1,7 +1,7 @@
 /* General page styling */
 body {
     font-family: Arial, sans-serif;
-    background-color: #e5fcf1;
+    background: linear-gradient(135deg, #d7cce3, #b6bfe7, #e6ebfa);
     color: #333;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -24,13 +24,11 @@ h1 {
     display: block;
     align-content: center;
     width: 100%; /* Allow it to take the full width */
-    min-height: 75vh; /* Ensure it takes at least the full viewport height */
+    min-height: 100vh; /* Ensure it takes at least the full viewport height */
     box-sizing: border-box; /* Include padding in height calculation */
     margin:auto;
     display: block; 
     text-align: center;
-    margin-top:40px;
-    margin-bottom:40px;
 }
 
 /* Form container */
