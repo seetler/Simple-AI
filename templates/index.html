@@ -43,11 +43,11 @@
         <img src="{{ url_for('static', filename='Logo.png') }}" alt="Logo" style="margin-bottom: 20px; width: 100px; box-shadow: 1px 1px 3px rgba(51, 54, 51, 0.5);" />
 
         <div class="answer_box" name="response">
-            Hello! I’m here to help answer your questions about Sonoma County! Type your question below and press Submit.</div>
+            Hello, I’m here to help answer your questions about Sonoma County! Type your question below and press Submit.</div>
 
         <br>
         <form action="/submit" method="POST" onsubmit="return showTextbox()">
-            <input type="text" name="form_prompt" placeholder="What is the fine for littering?" maxlength="100">
+            <input type="text" name="form_prompt" placeholder="What is the fine for littering?" maxlength="100" autocomplete="off">
             
             <!-- Dropdown Menu -->
             <select name="form_county" id="form_county">
