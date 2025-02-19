@@ -49,18 +49,46 @@ def func_retrieve_msg(var_thread_id0):
 
     return messages.data[0].content[0].text.value
 
-
-# This cleans the file.
 def text_fix(text):
+    """Fixes text formatting issues and ensures clean output."""
 
-    # Replace double asterisks (**) with <strong> for bold text
+    # ✅ Handle cases where text is a list of OpenAI content objects
+    if isinstance(text, list):
+        text = " ".join([extract_text(item) for item in text])
+
+    # ✅ Ensure text is a string before processing
+    text = extract_text(text)
+
+    # ✅ Replace double asterisks (**) with <strong> for bold text
     html_text = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', text)
-    # Replace newline characters (\n) with <br> for line breaks
+
+    # ✅ Replace newline characters (\n) with <br> for line breaks
     html_text = html_text.replace('\n', '<br>')
-    # Remove any text between 【 and 】
+
+    # ✅ Remove any text between 【 and 】
     html_text = re.sub(r'【.*?】', '', html_text)
-    
+
     return html_text
+
+
+def extract_text(content):
+    """
+    Extracts text from OpenAI response objects.
+    Handles TextContentBlock, Text objects, lists, and direct strings.
+    """
+    if isinstance(content, str):
+        return content  # Already a string
+
+    if hasattr(content, "text") and hasattr(content.text, "value"):
+        return content.text.value  # ✅ Extract text from TextContentBlock
+    
+    if hasattr(content, "value"):
+        return content.value  # ✅ Extract text from Text object
+
+    if isinstance(content, list):
+        return " ".join([extract_text(item) for item in content if item])  # Handle list of objects
+
+    return str(content)  # Convert anything else to string
 
 
 # This runs the full cycle in one function.

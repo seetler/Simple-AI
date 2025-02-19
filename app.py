@@ -1,98 +1,70 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, Response, request, jsonify, send_from_directory, render_template
 from key_computer3_oai import *
 from db_package import *
 from datetime import datetime
+import openai
+import time
+
+OPENAI_API_KEY =key_api_key0
+ASSISTANT_ID = assistant_dict["Sonoma"]
+
 
 app = Flask(__name__)
 
 
-#Base home page.
+# ✅ Initialize OpenAI client
+client = openai.OpenAI(api_key=OPENAI_API_KEY)
+
 @app.route('/')
 def home():
-    return render_template('index.html')
+    """Serve the frontend HTML"""
+    return render_template("index.html")
 
-global_thread = "threads/thread_wqrYgWSOoth0ZYf3YeIov9Jx"
-global_county = "Sonoma"
-
-
-
-#When the route is /submit, it posts the information. It takes, input_user and category
-@app.route('/submit', methods=['POST', 'GET'])
-def submit():
-    global global_thread, global_county
-
-    # Handle GET requests by redirecting to home
-    if request.method == 'GET':
-        return redirect(url_for('home'))
-
-    #creates a thread
-    var_thread_id0=(client.beta.threads.create()).id
-    global_thread = var_thread_id0
+def stream_openai_response(prompt):
+    """Generator function to interact with OpenAI Assistant API with new threads."""
     
-    print(var_thread_id0)
+    # 1️⃣ Create a new thread for every request
+    thread = client.beta.threads.create()
+    thread_id = thread.id  # Unique for each request
 
+    # 2️⃣ Add the user's message to the new thread
+    client.beta.threads.messages.create(
+        thread_id=thread_id,
+        role="user",
+        content=prompt
+    )
 
-    #puts in prompts
-    subm_prompt = request.form.get('form_prompt')
-    if subm_prompt is None or subm_prompt.strip() == "":
-        subm_prompt = "What is the fine for littering?"
-    
-    subm_email = request.form.get('form_email')
-    if subm_email is None or subm_email.strip() == "":
-        subm_email = "null"
+    # 3️⃣ Run the assistant on the new thread
+    run = client.beta.threads.runs.create(
+        thread_id=thread_id,
+        assistant_id=ASSISTANT_ID
+    )
 
-    subm_county=request.form.get('form_county')
-    global_county = subm_county
+    # 4️⃣ Wait for the assistant to process the request
+    while True:
+        run_status = client.beta.threads.runs.retrieve(thread_id=thread_id, run_id=run.id)
+        if run_status.status == "completed":
+            break
+        time.sleep(1)  # Wait before checking again
 
-    timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    # 5️⃣ Retrieve the assistant's response and stream it to the frontend
+    messages = client.beta.threads.messages.list(thread_id=thread_id)
 
-    output_0=f'{timestamp} - Thread: {global_thread} | - Question: {subm_prompt} | County: {global_county}\n'
-    with open('log.txt', 'a') as f:
-        f.write(output_0)
-    
-    # Calls the thread, then writes the reponse.
-    response_prompt = func_complete_cycle(subm_prompt, global_county, global_thread)    
-    response_0=f'{timestamp} - Thread: {global_thread} | - Response: {repr(response_prompt)} | County: {global_county}\n'
-    with open('log.txt', 'a') as f:
-        f.write(response_0)   
-    
-    return render_template('conversation.html', response_prompt=response_prompt, response_county=subm_county)
+    for msg in messages.data:
+        if msg.role == "assistant":
+            formatted_text = text_fix(msg.content)  # ✅ Apply text cleanup
+            yield formatted_text.encode("utf-8")  # ✅ Convert string to bytes
 
+@app.route('/chat', methods=['POST'])
+def chat():
+    """Handles chat requests and streams OpenAI Assistant's response"""
+    data = request.json
+    prompt = data.get("prompt", "")
 
+    if not prompt:
+        return jsonify({"error": "No prompt provided"}), 400
 
-
-
-#When the route is /conversation, on the followup
-@app.route('/conversation', methods=['POST', 'GET'])
-def conversation():
-    global global_thread, global_county
-
-    # Handle GET requests by redirecting to home
-    if request.method == 'GET':
-        return redirect(url_for('home'))
-
-    subm_prompt = request.form.get('form_prompt')
-    if subm_prompt is None or subm_prompt.strip() == "":
-        subm_prompt = "followup"
-
-    timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-
-    output_0=f'{timestamp} - Thread: {global_thread} |  - Question: {subm_prompt} | County: {global_county}\n'
-
-    with open('log.txt', 'a') as f:
-        f.write(output_0)
-
-
-    response_prompt = func_complete_cycle(subm_prompt, global_county, global_thread)    
-    response_0=f'{timestamp} - Thread: {global_thread} | Question: {repr(response_prompt)} | County: {global_county}\n'
-    with open('log.txt', 'a') as f:
-        f.write(response_0)   
-
-    return render_template('conversation.html', response_prompt=response_prompt, response_county=global_county)
-
-
+    return Response(stream_openai_response(prompt), content_type='text/plain')
 
 if __name__ == '__main__':
-    # Run the Flask app on all available IP addresses
-    app.run(host='0.0.0.0', port=5000, debug=True)
-
+    app.run(debug=True, port=5000)

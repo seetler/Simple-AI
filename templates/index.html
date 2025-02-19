@@ -42,64 +42,27 @@
     <div class="encompass">   
         <img src="{{ url_for('static', filename='Logo.png') }}" alt="Logo" style="margin-bottom: 20px; width: 100px; box-shadow: 1px 1px 3px rgba(51, 54, 51, 0.5);" />
 
-        <div class="answer_box" name="response">
+        <div class="answer_box" id="intro">
             Hello, I’m here to help answer your questions about Sonoma County! Type your question below and press Submit.</div>
 
         <br>
-        <form action="/submit" method="POST" onsubmit="return showTextbox()">
-            <input type="text" name="form_prompt" placeholder="What is the fine for littering?" maxlength="100" autocomplete="off">
-            
-            <!-- Dropdown Menu -->
-            <select name="form_county" id="form_county">
-                <!-- <option value="Marin">Marin</option>  
-                <option value="Napa">Napa</option> -->
-                <option value="Sonoma">Sonoma</option>
 
-            </select>
 
-            <button type="submit">Submit</button>
+            <textarea id="prompt" class="answer_box" placeholder="Type your message..."></textarea>
+            <br>
+            <br>
+            <div id="response" class="answer_box hidden" ></div>
+            <BR>
+            <button id="sendButton">Send</button>
 
-            <div id="textboxContainer" style="margin-top: 20px;" class="hidden">
-                <div id="fillerBox" class="filler">
-                    Answering your Question...
-                </div>
-            </div>
-        </form>
+ 
+
+            <!-- Corrected script path -->
+            <script src="/static/script.js"></script>
+
+
     </div> 
 
-    <script>
-        function showTextbox() {
-            var textbox = document.getElementById("textboxContainer");
-            var fillerBox = document.getElementById("fillerBox");
-            textbox.classList.remove("hidden");
-
-            // Add flashing animation
-            fillerBox.classList.add("flashing");
-
-            // Change text after 5 seconds
-            setTimeout(function() {
-                fillerBox.innerText = "This can take a couple of seconds...";
-            }, 5000); // 5 seconds
-
-            // Change text again after another 5 seconds
-            setTimeout(function() {
-                fillerBox.innerText = "Finalizing the Details...";
-            }, 10000); // 10 seconds
-
-            // Change text again after another 5 seconds
-            setTimeout(function() {
-                fillerBox.innerText = "Organizing the Response...";
-            }, 15000); // 10 seconds
-
-            // Hide the filler box after 20 seconds
-            setTimeout(function() {
-                textbox.classList.add("hidden");
-            }, 20000); // 20 seconds
-
-            // Return true to allow form submission
-            return true;
-        }
-    </script>
-
+    
 </body>
 </html>

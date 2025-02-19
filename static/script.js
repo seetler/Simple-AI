@@ -1,5 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("sendButton").addEventListener("click", sendPrompt);
+    const sendButton = document.getElementById("sendButton");
+    const introBox = document.getElementById("intro"); // Select the intro box
+
+    sendButton.addEventListener("click", function () {
+        if (introBox) {
+            introBox.classList.add("hidden"); // Hide the intro box
+        }
+        sendPrompt(); // Call the existing sendPrompt function
+    });
 });
 
 async function sendPrompt() {
@@ -9,8 +17,11 @@ async function sendPrompt() {
 
     if (!prompt) {
         responseDiv.innerHTML = "<p style='color:red;'>Please enter a message.</p>";
+        responseDiv.classList.remove("hidden"); // Show error message
         return;
     }
+
+    responseDiv.classList.remove("hidden"); // Make response box visible
 
     try {
         const response = await fetch("/chat", {
