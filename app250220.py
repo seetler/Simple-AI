@@ -63,10 +63,11 @@ def stream_openai_response(prompt):
 def chat():
     """Handles chat requests and streams OpenAI Assistant's response"""
     data = request.json
-    prompt = data.get("prompt", "")
+    prompt = data.get("prompt", "").strip()  # Trim whitespace to avoid false positives
 
+    # ✅ Ensure prompt defaults correctly when empty
     if not prompt:
-        return jsonify({"error": "No prompt provided"}), 400
+        prompt = "Where can I get help with senior housing assistance?"
 
     return Response(stream_openai_response(prompt), content_type='text/plain')
 

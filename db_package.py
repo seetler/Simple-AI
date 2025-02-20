@@ -1,5 +1,3 @@
-# This files contains all the core functions that are then imported into app.py, the base Flask function.
-
 # importing the openai package and the authentication key.
 import openai
 from key_computer3_oai import *

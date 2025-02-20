@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const introBox = document.getElementById("intro"); // Select the intro box
     const fillerBox = document.getElementById("fillerBox"); // Select the loading message box
     const promptInput = document.getElementById("prompt"); // Select the input box
+    const responseDiv = document.getElementById("response"); // Select the response box
 
     // Click event for the Submit button
     sendButton.addEventListener("click", function () {
@@ -10,40 +11,38 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // **Listen for "Enter" key press inside the input field**
-    promptInput.addEventListener("keypress", function (event) {
-        if (event.key === "Enter") {
+    promptInput.addEventListener("keydown", function (event) {
+        if (event.key === "Enter" && !event.shiftKey) { 
             event.preventDefault(); // **Prevents adding a new line in the textarea**
             submitPrompt();
         }
     });
 
     function submitPrompt() {
+        let promptText = promptInput.value.trim();
+
+        // **🔹 If empty, use the default message**
+        if (!promptText) {
+            promptText = "Where can I get help with senior housing assistance?";
+            promptInput.value = promptText; // Update the input field with the default
+        }
+
         if (introBox) {
             introBox.classList.add("hidden"); // Hide the intro box
         }
         if (fillerBox) {
             fillerBox.classList.remove("hidden"); // Show the loading message
         }
-        sendPrompt(); // Call the existing sendPrompt function
+
+        sendPrompt(promptText);
     }
 });
 
-async function sendPrompt() {
-    let prompt = document.getElementById("prompt").value;
+async function sendPrompt(prompt) {
     let responseDiv = document.getElementById("response");
     let fillerBox = document.getElementById("fillerBox"); // Select the loading message box
 
     responseDiv.innerHTML = ""; // Clear previous response
-
-    if (!prompt.trim()) { // **Prevents submission of empty input**
-        responseDiv.innerHTML = "<p style='color:red;'>Please enter a message.</p>";
-        responseDiv.classList.remove("hidden"); // Show error message
-        if (fillerBox) {
-            fillerBox.classList.add("hidden"); // Hide loading message if there's an error
-        }
-        return;
-    }
-
     responseDiv.classList.remove("hidden"); // Make response box visible
 
     try {

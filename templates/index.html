@@ -48,7 +48,7 @@
         <br>
 
 
-            <textarea id="prompt" class="answer_box" placeholder="Type your message..."></textarea>
+            <textarea id="prompt" class="answer_box" placeholder="Where can I get help with senior housing assistance?"></textarea>
             <br>
             <br>
             <div id="response" class="answer_box hidden" ></div>
@@ -84,7 +84,7 @@
 
             // Change text again after another 5 seconds
             setTimeout(function() {
-                fillerBox.innerText = "Finalizing the Details...";
+                fillerBox.innerText = "Searching our Archives...";
             }, 10000); // 10 seconds
 
             // Change text again after another 5 seconds
@@ -92,13 +92,22 @@
                 fillerBox.innerText = "Organizing the Response...";
             }, 15000); // 15 seconds
 
-            // Hide the filler box after 20 seconds
-            setTimeout(function() {
-                textbox.classList.add("hidden");
-            }, 20000); // 20 seconds
+            // Change text again after another 5 seconds
+                        setTimeout(function() {
+                fillerBox.innerText = "Finalizing the Details...";
+            }, 20000); // 15 seconds
 
-            // Return true to allow form submission
-            return true;
+            // Change text again after another 5 seconds
+            setTimeout(function() {
+                fillerBox.innerText = "Don't refersh the page..";
+            }, 25000); // 15 seconds
+
+            // Change text again after another 5 seconds
+            setTimeout(function() {
+                fillerBox.innerText = "Almost there..";
+            }, 30000); // 15 seconds            
+
+
         }
     </script>
 </body>
