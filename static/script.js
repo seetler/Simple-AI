@@ -22,20 +22,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function submitPrompt() {
         let promptText = promptInput.value.trim();
-
-        // **🔹 If empty, use the default message**
+    
         if (!promptText) {
             promptText = "Where can I get help with senior housing assistance?";
-            promptInput.value = promptText; // Update the input field with the default
+            promptInput.value = promptText;
         }
-
+    
         if (introBox) {
             introBox.classList.add("hidden"); // Hide the intro box
         }
+    
         if (fillerBox) {
-            fillerBox.classList.remove("hidden"); // Show the loading message
+            showTextbox(); // ✅ Start loading animation from the beginning
         }
-
+    
         sendPrompt(promptText);
     }
 

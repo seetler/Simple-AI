@@ -72,45 +72,47 @@
     
     <script>
         function showTextbox() {
-            var textbox = document.getElementById("textboxContainer");
             var fillerBox = document.getElementById("fillerBox");
-            fillerBox.classList.remove("hidden");
 
-            // Add flashing animation
+            // ✅ Reset the text immediately
+            fillerBox.innerText = "Answering your Question...";
+            fillerBox.classList.remove("hidden");
             fillerBox.classList.add("flashing");
 
-            // Change text after 5 seconds
-            setTimeout(function() {
+            // ✅ Clear previous timeouts (Prevents multiple timers stacking up)
+            clearTimeout(window.textTimeout1);
+            clearTimeout(window.textTimeout2);
+            clearTimeout(window.textTimeout3);
+            clearTimeout(window.textTimeout4);
+            clearTimeout(window.textTimeout5);
+            clearTimeout(window.textTimeout6);
+
+            // ✅ Restart the sequence of messages
+            window.textTimeout1 = setTimeout(function() {
                 fillerBox.innerText = "This can take a couple of seconds...";
             }, 5000); // 5 seconds
 
-            // Change text again after another 5 seconds
-            setTimeout(function() {
+            window.textTimeout2 = setTimeout(function() {
                 fillerBox.innerText = "Searching our Archives...";
             }, 10000); // 10 seconds
 
-            // Change text again after another 5 seconds
-            setTimeout(function() {
+            window.textTimeout3 = setTimeout(function() {
                 fillerBox.innerText = "Don't refresh the page...";
             }, 15000); // 15 seconds
 
-            // Change text again after another 5 seconds
-                        setTimeout(function() {
+            window.textTimeout4 = setTimeout(function() {
                 fillerBox.innerText = "Finalizing the Details...";
-            }, 20000); // 15 seconds
+            }, 20000); // 20 seconds
 
-            // Change text again after another 5 seconds
-            setTimeout(function() {
+            window.textTimeout5 = setTimeout(function() {
                 fillerBox.innerText = "Organizing our response...";
-            }, 25000); // 15 seconds
+            }, 25000); // 25 seconds
 
-            // Change text again after another 5 seconds
-            setTimeout(function() {
+            window.textTimeout6 = setTimeout(function() {
                 fillerBox.innerText = "Almost there...";
-            }, 30000); // 15 seconds            
-
-
+            }, 30000); // 30 seconds
         }
+
     </script>
 </body>
 </html>
