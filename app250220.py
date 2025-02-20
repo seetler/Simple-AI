@@ -55,6 +55,10 @@ def stream_openai_response(prompt):
             formatted_text = text_fix(msg.content)  # ✅ Apply text cleanup
             yield formatted_text.encode("utf-8")  # ✅ Convert string to bytes
 
+    # **🔹 Add this line to send an "END_RESPONSE" marker to the frontend**
+    yield b"\nEND_RESPONSE"
+
+
 @app.route('/chat', methods=['POST'])
 def chat():
     """Handles chat requests and streams OpenAI Assistant's response"""

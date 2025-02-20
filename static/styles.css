@@ -27,7 +27,6 @@ h1 {
     min-height: 100vh; /* Ensure it takes at least the full viewport height */
     box-sizing: border-box; /* Include padding in height calculation */
     margin:auto;
-    display: block; 
     text-align: center;
 }
 
@@ -66,27 +65,30 @@ input[type="text"]:focus {
     outline: none;
 }
 
-
-/* Input field styling */
-.filler {
+/* Center the textboxContainer */
+#textboxContainer {
+    display: flex;  /* Enables flexbox for centering */
+    justify-content: center;  /* Centers horizontally */
+    align-items: center;  /* Centers vertically */
     width: 100%;
+    margin-top: 15px;
+}
+
+/* Center the filler inside the container */
+.filler {
+    width: 180px; /* Fixed width for better alignment */
+    min-width: 150px;
+    max-width: 200px;
     padding: 10px;
     border-radius: 4px;
     font-size: 16px;
     box-sizing: border-box;
-    transition: border-color 0.3s;
-    min-width: 150px; /* Set a smaller minimum width */
-    max-width: 100%; /* Ensure it doesn't overflow the screen */
     background-color: #f2f2f2;
     border: 1px solid #ccc;
     font-weight: bold;
     text-align: center;
     opacity: 1;
-
 }
-
-
-
 
 
 /* Dropdown styling */

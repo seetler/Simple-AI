@@ -9,8 +9,8 @@
     crossorigin="anonymous"></script>
 
     <!-- SEO -->
-    <meta name="description" content="Civic Code AI provides assistance with county laws and ordinances. Get answers to your questions about public county ordinances and laws, currently available for Sonoma County.">
-    <meta name="keywords" content="Civic Code AI, county laws, ordinances, Sonoma County, public ordinances, legal assistance, helpbot">
+    <meta name="description" content="Civic Code AI modernizes government information access through AI-powered kiosks and a document processing subscription service for county governments.">
+    <meta name="keywords" content="Civic Code AI, county laws, ordinances, Sonoma County, public ordinances, legal assistance, helpbot, document processing, coutny laws">
     
     <!-- Open Graph -->
     <meta property="og:title" content="Civic Code AI | Government Help Kiosks">
@@ -53,8 +53,12 @@
             <br>
             <div id="response" class="answer_box hidden" ></div>
             <BR>
-            <button id="sendButton">Send</button>
-
+            <button id="sendButton" onclick="return showTextbox()">Submit</button>
+            <div id="textboxContainer">
+                <div id="fillerBox" class="filler hidden">
+                    Answering your Question...
+                </div>
+            </div>
  
 
             <!-- Corrected script path -->
@@ -64,5 +68,38 @@
     </div> 
 
     
+    <script>
+        function showTextbox() {
+            var textbox = document.getElementById("textboxContainer");
+            var fillerBox = document.getElementById("fillerBox");
+            fillerBox.classList.remove("hidden");
+
+            // Add flashing animation
+            fillerBox.classList.add("flashing");
+
+            // Change text after 5 seconds
+            setTimeout(function() {
+                fillerBox.innerText = "This can take a couple of seconds...";
+            }, 5000); // 5 seconds
+
+            // Change text again after another 5 seconds
+            setTimeout(function() {
+                fillerBox.innerText = "Finalizing the Details...";
+            }, 10000); // 10 seconds
+
+            // Change text again after another 5 seconds
+            setTimeout(function() {
+                fillerBox.innerText = "Organizing the Response...";
+            }, 15000); // 15 seconds
+
+            // Hide the filler box after 20 seconds
+            setTimeout(function() {
+                textbox.classList.add("hidden");
+            }, 20000); // 20 seconds
+
+            // Return true to allow form submission
+            return true;
+        }
+    </script>
 </body>
 </html>
