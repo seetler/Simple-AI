@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Click event for the Submit button
     sendButton.addEventListener("click", function () {
         submitPrompt();
+        zoomOut(); // ✅ Zoom out after submitting
     });
 
     // **Listen for "Enter" key press inside the input field**
@@ -15,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (event.key === "Enter" && !event.shiftKey) { 
             event.preventDefault(); // **Prevents adding a new line in the textarea**
             submitPrompt();
+            zoomOut(); // ✅ Zoom out after pressing enter
         }
     });
 
@@ -35,6 +37,17 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         sendPrompt(promptText);
+    }
+
+    function zoomOut() {
+        // ✅ Removes focus from the input field
+        promptInput.blur();
+
+        // ✅ Reset viewport scale (for mobile)
+        document.querySelector("meta[name=viewport]").setAttribute(
+            "content",
+            "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+        );
     }
 });
 
