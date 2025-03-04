@@ -5,69 +5,33 @@ from datetime import datetime
 import openai
 import time
 
-
-
+# This sets up a set of default keys.
+# Because this version only uses a single assistant, we just Sonoma.
+# The dictionary comes from keys_hidden.py
 OPENAI_API_KEY =key_api_key0
-ASSISTANT_ID = assistant_dict["Sonoma"]
 
 
+# Sets root folder, and sets this file as the main.
 app = Flask(__name__)
 
 
-# ✅ Initialize OpenAI client
+#  Initialize OpenAI client
 client = openai.OpenAI(api_key=OPENAI_API_KEY)
 
+# Visiting Base App Route causes home() to immediately trigger serving the index.html.
 @app.route('/')
 def home():
-    """Serve the frontend HTML"""
+    # Serves the index.html
     return render_template("index.html")
 
-def stream_openai_response(prompt):
-    """Generator function to interact with OpenAI Assistant API with new threads."""
-    
-    # 1️⃣ Create a new thread for every request
-    thread = client.beta.threads.create()
-    thread_id = thread.id  # Unique for each request
-
-    # 2️⃣ Add the user's message to the new thread
-    client.beta.threads.messages.create(
-        thread_id=thread_id,
-        role="user",
-        content=prompt
-    )
-
-    # 3️⃣ Run the assistant on the new thread
-    run = client.beta.threads.runs.create(
-        thread_id=thread_id,
-        assistant_id=ASSISTANT_ID
-    )
-
-    # 4️⃣ Wait for the assistant to process the request
-    while True:
-        run_status = client.beta.threads.runs.retrieve(thread_id=thread_id, run_id=run.id)
-        if run_status.status == "completed":
-            break
-        time.sleep(1)  # Wait before checking again
-
-    # 5️⃣ Retrieve the assistant's response and stream it to the frontend
-    messages = client.beta.threads.messages.list(thread_id=thread_id)
-
-    for msg in messages.data:
-        if msg.role == "assistant":
-            formatted_text = text_fix(msg.content)  # ✅ Apply text cleanup
-            yield formatted_text.encode("utf-8")  # ✅ Convert string to bytes
-
-    # **🔹 Add this line to send an "END_RESPONSE" marker to the frontend**
-    yield b"\nEND_RESPONSE"
-
-
+# The /chat is triggered when the Submit button is pressed. It calls a function stream_openai_response from db_packages.py
 @app.route('/chat', methods=['POST'])
 def chat():
-    """Handles chat requests and streams OpenAI Assistant's response"""
+    # Some HTML moving.
     data = request.json
     prompt = data.get("prompt", "").strip()  # Trim whitespace to avoid false positives
 
-    # ✅ Ensure prompt defaults correctly when empty
+    # Default Statement
     if not prompt:
         prompt = "Where can I get help with senior housing assistance?"
 
