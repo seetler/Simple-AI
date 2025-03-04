@@ -24,7 +24,6 @@
 
     <style>
         .hidden { display: none; }
-        .encompass { text-align: center; display: block; }
         
         /* Flashing animation */
         @keyframes flashAndFade {
@@ -35,6 +34,7 @@
         .flashing {
             animation: flashAndFade 1.5s infinite;
         }
+
     </style>
 </head>
 <body>
@@ -42,13 +42,10 @@
     <div class="encompass">   
         <img src="{{ url_for('static', filename='Logo.png') }}" alt="Logo" style="margin-bottom: 20px; width: 100px; box-shadow: 1px 1px 3px rgba(51, 54, 51, 0.5);" />
 
-        <div class="answer_box" id="intro">
-            Hello, I’m here to help answer your questions about Sonoma County! Type your question below and press Submit.</div>
-
+        <div id="intro" class="answer_box">Hello, I’m here to help answer your questions about Sonoma County! Type your question below and press Submit.</div>
         <div id="response" class="answer_box hidden" ></div>
-<br>
-        <textarea id="prompt" class="answer_box" placeholder="Where can I get help with senior housing assistance?"></textarea>
         <br>
+        <textarea id="prompt" class="answer_box" placeholder="Where can I get help with senior housing assistance?"></textarea>
         <br>
         <button id="sendButton" onclick="return showTextbox()">Submit</button>
         <br>

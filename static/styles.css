@@ -21,7 +21,7 @@ h1 {
 }
 
 .encompass {
-    display: flex;
+    display: block;
     align-content: center;
     flex-direction:column;
     align-items: center; /* Center horizontally */
