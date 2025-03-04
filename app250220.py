@@ -1,9 +1,11 @@
 from flask import Flask, Response, request, jsonify, send_from_directory, render_template
-from key_computer3_oai import *
+from keys_hidden import *
 from db_package import *
 from datetime import datetime
 import openai
 import time
+
+
 
 OPENAI_API_KEY =key_api_key0
 ASSISTANT_ID = assistant_dict["Sonoma"]

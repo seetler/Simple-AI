@@ -1,6 +1,6 @@
 # importing the openai package and the authentication key.
 import openai
-from key_computer3_oai import *
+from keys_hidden import *
 import re
 import os
 
