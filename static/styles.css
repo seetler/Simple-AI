@@ -25,7 +25,6 @@ h1 {
     align-content: center;
     width: 100%; /* Allow it to take the full width */
     min-height: 100vh; /* Ensure it takes at least the full viewport height */
-    box-sizing: border-box; /* Include padding in height calculation */
     margin:auto;
     text-align: center;
 }
@@ -146,7 +145,6 @@ button:hover {
     color: #333;
     width: 100%; /* Make the answer box flexible in width */
     max-width: 600px; /* Set a maximum width */
-    margin-bottom: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     box-sizing: border-box; /* Ensure padding and borders are considered in the width */
     transition: transform 0.3s, box-shadow 0.3s;
