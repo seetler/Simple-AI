@@ -1,4 +1,4 @@
-/* General page styling */
+/* Default */
 body {
     font-family: Arial, sans-serif;
     background: linear-gradient(135deg,  #c9cfee, #d7cce3, #f3f5e8);
@@ -12,12 +12,36 @@ body {
     align-items: center;
 }
 
-/* Styling for the h1 */
 h1 {
     font-size: 2.5em;
     margin-bottom: 20px;
     color: #333;
     text-align: center;
+}
+
+/* Button styling */
+button {
+    background-color: #3498db;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%; /* Use full width of the container */
+    box-sizing: border-box;
+    transition: background-color 0.3s;
+    text-align: center; /* Ensure text is centered */
+    height:50px;
+    width:100px;
+    display: block; /* Ensure it takes up space */
+    position: relative; /* Ensure it's not collapsing */
+    z-index: 10; /* Bring it to the front */
+    margin: 0 auto; /* Center horizontally */
+}
+
+button:hover {
+    background-color: #2980b9;
 }
 
 .encompass {
@@ -29,41 +53,6 @@ h1 {
     min-height: 100vh; /* Ensure it takes at least the full viewport height */
     margin:auto;
     text-align: center;
-}
-
-/* Form container */
-form {
-    background-color: #fff;
-    margin:auto;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%; /* Make the form width flexible */
-    max-width: 400px; /* Limit the maximum width */
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center the content inside the form */
-    box-sizing: border-box; /* Ensure padding and border are included in width calculation */
-}
-
-/* Input field styling */
-input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-    box-sizing: border-box;
-    transition: border-color 0.3s;
-    min-width: 150px; /* Set a smaller minimum width */
-    max-width: 100%; /* Ensure it doesn't overflow the screen */
-}
-
-input[type="text"]:focus {
-    border-color: #3498db;
-    outline: none;
 }
 
 /* Center the textboxContainer */
@@ -92,54 +81,6 @@ input[type="text"]:focus {
     display:block;
 }
 
-
-/* Dropdown styling */
-select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #cccccc;
-    border-radius: 4px;
-    font-size: 16px;
-    box-sizing: border-box;
-    transition: border-color 0.3s;
-    min-width: 150px; /* Set a smaller minimum width */
-    max-width: 100%; /* Ensure it doesn't overflow the screen */
-}
-
-select:focus {
-    border-color: #3498db;
-    outline: none;
-} 
-
-/* Button styling */
-button {
-    background-color: #3498db;
-    color: white;
-    padding: 12px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    width: 100%; /* Use full width of the container */
-    box-sizing: border-box;
-    transition: background-color 0.3s;
-    text-align: center; /* Ensure text is centered */
-    height:50px;
-    width:100px;
-    display: block; /* Ensure it takes up space */
-    position: relative; /* Ensure it's not collapsing */
-    z-index: 10; /* Bring it to the front */
-    margin: 0 auto; /* Center horizontally */
-
-
-}
-
-button:hover {
-    background-color: #2980b9;
-}
-
-
 /* Styling for the response box */
 .answer_box {
     background-color: #ffffff;
@@ -157,24 +98,16 @@ button:hover {
     margin:auto
 }
 
-/* Add hover effect to the answer box */
 .answer_box:hover {
     transform: scale(1.02);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
-
-
-
 
 .hidden {
     display: none;
 }
 
 textarea.answer_box {
-
-    
     font-size: inherit;
     font-family: inherit;
-
-
 }

@@ -5,9 +5,7 @@ from datetime import datetime
 import openai
 import time
 
-# This sets up a set of default keys.
-# Because this version only uses a single assistant, we just Sonoma.
-# The dictionary comes from keys_hidden.py
+
 OPENAI_API_KEY =key_api_key0
 
 

@@ -4,7 +4,9 @@ from keys_hidden import *
 import re
 import time
 
-# Sonoma only ATM
+# This sets up a set of default keys.
+# Because this version only uses a single assistant, we just Sonoma.
+# The dictionary comes from keys_hidden.py
 client = openai.OpenAI(api_key=key_api_key0)
 ASSISTANT_ID = assistant_dict["Sonoma"]
 
@@ -85,7 +87,7 @@ def stream_openai_response(prompt):
     for msg in messages.data:
         if msg.role == "assistant":
             formatted_text = text_fix(msg.content)  # ✅ Apply text cleanup
-            yield formatted_text.encode("utf-8")  # ✅ Convert string to bytes
+            yield formatted_text  # ✅ Convert string to bytes
 
     # Add this line to send an "END_RESPONSE" marker to the frontend
     # this is akin to concat(msg, b"\nEND_RESPONSE"). This set up is originally for streaming responses.
