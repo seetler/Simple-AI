@@ -2,53 +2,14 @@
 import openai
 from keys_hidden import *
 import re
-import os
+import time
 
+# Sonoma only ATM
 client = openai.OpenAI(api_key=key_api_key0)
+ASSISTANT_ID = assistant_dict["Sonoma"]
 
-# This functions creates a thread
-def func_create_thread():
-
-    run_id = client.beta.threads.create()
-    
-    return run_id.id
-
-
-# This functions adds a user message to the thread.
-def func_send_msg(user_input0, var_thread_id0):
-    
-    client.beta.threads.messages.create(
-
-        thread_id=var_thread_id0,
-        role="user",
-        content=user_input0
-
-    )
-
-
-# This functions runs a thread.
-def func_run_thread(form_county, var_thread_id0):
-
-    run = client.beta.threads.runs.create_and_poll(
-
-        thread_id=var_thread_id0,
-        assistant_id=assistant_dict[form_county],
-
-    )
-
-
-# This retrieves the latest message after the thread is run
-def func_retrieve_msg(var_thread_id0):
-    messages = client.beta.threads.messages.list(
-        
-        thread_id=var_thread_id0
-
-    )
-
-    return messages.data[0].content[0].text.value
-
+# Text clean up and format from chunks to display on HTML
 def text_fix(text):
-    """Fixes text formatting issues and ensures clean output."""
 
     # ✅ Handle cases where text is a list of OpenAI content objects
     if isinstance(text, list):
@@ -68,12 +29,9 @@ def text_fix(text):
 
     return html_text
 
-
+# Parses the OpenAI reponse
 def extract_text(content):
-    """
-    Extracts text from OpenAI response objects.
-    Handles TextContentBlock, Text objects, lists, and direct strings.
-    """
+
     if isinstance(content, str):
         return content  # Already a string
 
@@ -89,12 +47,46 @@ def extract_text(content):
     return str(content)  # Convert anything else to string
 
 
-# This runs the full cycle in one function.
-def func_complete_cycle(subm_prompt, subm_county, var_thread_id0):
-    
-    func_send_msg(subm_prompt, var_thread_id0)
-    func_run_thread(subm_county, var_thread_id0)
-    
-    function_output = text_fix(func_retrieve_msg(var_thread_id0))
 
-    return function_output
+# Core function to get reposnes.
+def stream_openai_response(prompt):
+    
+    # 1️⃣ Create a new thread for every request
+    thread = client.beta.threads.create()
+    thread_id = thread.id  # Unique for each request
+
+    # 2️⃣ Add the user's message to the new thread
+    client.beta.threads.messages.create(
+        thread_id=thread_id,
+        role="user",
+        content=prompt
+    )
+
+    # 3️⃣ Run the assistant on the new thread
+    run = client.beta.threads.runs.create(
+        thread_id=thread_id,
+        assistant_id=ASSISTANT_ID
+    )
+
+    # 4️⃣ This keep running until the status completes. This was originally set up for streaming, so the code is more complicated than needed for a single response.
+    while True:
+        run_status = client.beta.threads.runs.retrieve(thread_id=thread_id, run_id=run.id)
+
+        #This only proceeds to the next step after the status is complete.
+        if run_status.status == "completed":
+            break
+        time.sleep(1)  # Wait before checking again
+
+    # 5️⃣ Retrieve the assistant's response and stream it to the frontend. This doesn't work for vector storage documents.
+    messages = client.beta.threads.messages.list(thread_id=thread_id)
+
+    # This is a loop for all messages. This is assuming the data is still streaming so it loops through every message received.
+    # However, this we are waiting until the full stream is complete, this does not need a loop at all.
+    for msg in messages.data:
+        if msg.role == "assistant":
+            formatted_text = text_fix(msg.content)  # ✅ Apply text cleanup
+            yield formatted_text.encode("utf-8")  # ✅ Convert string to bytes
+
+    # Add this line to send an "END_RESPONSE" marker to the frontend
+    # this is akin to concat(msg, b"\nEND_RESPONSE"). This set up is originally for streaming responses.
+    yield b"\nEND_RESPONSE"

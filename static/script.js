@@ -1,3 +1,4 @@
+// 1. Creates a JS variable for the objects in the HTML Page - These are all UI improvements, and does not affect any core functions.
 document.addEventListener("DOMContentLoaded", function () {
     const sendButton = document.getElementById("sendButton");
     const introBox = document.getElementById("intro"); // Select the intro box
@@ -5,13 +6,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const promptInput = document.getElementById("prompt"); // Select the input box
     const responseDiv = document.getElementById("response"); // Select the response box
 
-    // Click event for the Submit button
+    // Mobile UI feature, it zooms out to show the viewport width after a question is submitted.
     sendButton.addEventListener("click", function () {
         submitPrompt();
-        zoomOut(); // ✅ Zoom out after submitting
+        zoomOut();
     });
 
-    // **Listen for "Enter" key press inside the input field**
+    // General UI - Listen for "Enter" key press inside the input field
     promptInput.addEventListener("keydown", function (event) {
         if (event.key === "Enter" && !event.shiftKey) { 
             event.preventDefault(); // **Prevents adding a new line in the textarea**
@@ -20,6 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    // Various UI after a prompt is submitted.
     function submitPrompt() {
         let promptText = promptInput.value.trim();
     
@@ -36,9 +38,11 @@ document.addEventListener("DOMContentLoaded", function () {
             showTextbox(); // ✅ Start loading animation from the beginning
         }
     
+        // This triggers the sendPrompt function below.
         sendPrompt(promptText);
     }
 
+    // UI only, zooms out to viewport width.
     function zoomOut() {
         // ✅ Removes focus from the input field
         promptInput.blur();
@@ -51,13 +55,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+// 2. This is the core function triggered by the submitPrompt button.
 async function sendPrompt(prompt) {
     let responseDiv = document.getElementById("response");
     let fillerBox = document.getElementById("fillerBox"); // Select the loading message box
 
+    // Two UI only changes.
     responseDiv.innerHTML = ""; // Clear previous response
     responseDiv.classList.remove("hidden"); // Make response box visible
 
+    // It's now trying to fetch things from /chat, which calls the OpenAI function.
     try {
         const response = await fetch("/chat", {
             method: "POST",
@@ -75,16 +82,18 @@ async function sendPrompt(prompt) {
             return;
         }
 
+        //Setting up variables from streaming responses.
         const reader = response.body.getReader();
         const decoder = new TextDecoder();
         let completeResponse = "";
 
+        //It's trying to stream a reponse, but Chats with Vector Storage can't offer streamed responses, only full complete answer.
         while (true) {
             const { done, value } = await reader.read();
             if (done) break;
             let chunk = decoder.decode(value, { stream: true });
 
-            // **🔹 Check for "END_RESPONSE" marker but keep response text**
+            // The db_package.py inserts a End Reponse to note the end, and this parses that keyword.
             if (chunk.includes("END_RESPONSE")) {
                 chunk = chunk.replace("END_RESPONSE", ""); // **Remove marker but keep text**
                 completeResponse += chunk;
@@ -96,11 +105,11 @@ async function sendPrompt(prompt) {
             responseDiv.innerHTML = completeResponse; // Update response box
         }
 
-        // **Ensure `fillerBox` is hidden after response completes**
+        // Some more UI changes.
         if (fillerBox) {
             fillerBox.classList.add("hidden");
         }
-
+    // This ends the try statement, so then it shows the error here.
     } catch (error) {
         responseDiv.innerHTML = `<p style='color:red;'>Error: ${error.message}</p>`;
         if (fillerBox) {
