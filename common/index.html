@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta name="viewport" content="width=device-width">
+    <title>Civic Code AI | County Ordinances Helpbot</title>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1839474213054333" crossorigin="anonymous"></script>
+
+    <!-- SEO -->
+    <meta name="description" content="Civic Code AI modernizes government information access through AI-powered kiosks and a document processing subscription service for county governments.">
+    <meta name="keywords" content="Civic Code AI, county laws, ordinances, Sonoma County, public ordinances, legal assistance, helpbot, document processing, coutny laws">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Civic Code AI | Government Help Kiosks">
+    <meta property="og:description" content="Civic Code AI provides assistance with county laws and ordinances. Get answers to your questions about public county ordinances and laws.">
+    <meta property="og:image" content="https://civiccodeai.com/static/Logo.png">
+    <meta property="og:url" content="http://civiccodeai.com">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon"> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="/common/script.js"></script>
+
+    <style>
+        /* Flashing animation */
+        @keyframes flashAndFade {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .flashing {
+            animation: flashAndFade 1.5s infinite;
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+    <div class="encompass">   
+        
+        <img src="{{ url_for('static', filename='Logo.png') }}" alt="Logo" style="margin-bottom: 20px; width: 100px; box-shadow: 1px 1px 3px rgba(51, 54, 51, 0.5);" />
+
+        <div id="intro" class="answer_box">Hello, I’m here to help answer your questions about Sonoma County! Type your question below and press Submit.</div>
+
+        <div id="response" class="answer_box hidden" ></div>
+        <br>
+
+        <textarea id="prompt" class="answer_box" placeholder="Where can I get help with senior housing assistance?"></textarea>
+        <br>
+        <br>
+
+        <button id="sendButton" onclick="return showTextbox()">Submit</button>
+        <br>
+
+        <div id="textboxContainer">
+            <div id="fillerBox" class="filler hidden">
+                Answering your Question...
+            </div>
+        </div>
+
+    </div> 
+
+    
+    <script>
+        function showTextbox() {
+            var fillerBox = document.getElementById("fillerBox");
+
+            // ✅ Reset the text immediately
+            fillerBox.innerText = "Answering your Question...";
+            fillerBox.classList.remove("hidden");
+            fillerBox.classList.add("flashing");
+
+            // ✅ Clear previous timeouts (Prevents multiple timers stacking up)
+            clearTimeout(window.textTimeout1);
+            clearTimeout(window.textTimeout2);
+            clearTimeout(window.textTimeout3);
+            clearTimeout(window.textTimeout4);
+            clearTimeout(window.textTimeout5);
+            clearTimeout(window.textTimeout6);
+
+            // ✅ Restart the sequence of messages
+            window.textTimeout1 = setTimeout(function() {
+                fillerBox.innerText = "This can take a couple of seconds...";
+            }, 5000); // 5 seconds
+
+            window.textTimeout2 = setTimeout(function() {
+                fillerBox.innerText = "Searching our Archives...";
+            }, 10000); // 10 seconds
+
+            window.textTimeout3 = setTimeout(function() {
+                fillerBox.innerText = "Don't refresh the page...";
+            }, 15000); // 15 seconds
+
+            window.textTimeout4 = setTimeout(function() {
+                fillerBox.innerText = "Finalizing the Details...";
+            }, 20000); // 20 seconds
+
+            window.textTimeout5 = setTimeout(function() {
+                fillerBox.innerText = "Organizing our response...";
+            }, 25000); // 25 seconds
+
+            window.textTimeout6 = setTimeout(function() {
+                fillerBox.innerText = "Almost there...";
+            }, 30000); // 30 seconds
+        }
+
+    </script>
+
+</body>
+
+</html>
